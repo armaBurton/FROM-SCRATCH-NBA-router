@@ -8,21 +8,34 @@ import robotFetch from '../../services/robotFetch';
 
 export default function RobotList(){
   const location = useLocation();
-  const searchGender = new URLSearchParams(location.search).get('gender') ?? 'all';
+  const searchGender = new URLSearchParams(location.search).get('gender') || 'all';
   console.log(searchGender);
   const history = useHistory();
   
   const {
     loading, setLoading,
     robots, setRobots,
-    gender, setGender
+    gender, setGender,
+    targetValue
   } = useRUARobotContext();
 
   const handleGenderChange = (e) => {
     e.preventDefault();
+    console.log(gender, e.target.value);
     setGender(e.target.value);
+    console.log(gender, e.target.value);
     history.push(`/robots/?gender=${e.target.value}`);
   };
+
+  useEffect(() => {
+    function checkGender(){
+      setGender(targetValue);
+      history.push(`/robots/?gender=${targetValue}`);
+    }
+
+    checkGender();
+  }, [])
+
 
   useEffect(() => {
     async function getRobots() {
@@ -40,7 +53,9 @@ export default function RobotList(){
     }
 
     getRobots();
-  }, [searchGender])
+  }, [gender])
+
+  console.log(searchGender);
 
   return (
       <section className={style.meetMyRobots}>

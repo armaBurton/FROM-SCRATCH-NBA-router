@@ -8,11 +8,15 @@ import { useHistory } from 'react-router-dom';
 export default function RobotDetail(){
   const { id } = useParams();
   const {
-    robots
+    robots,
+    gender,
+    setTargetValue
   } = useRUARobotContext();
   const history = useHistory();
   let robot = {};
   console.log(robots);
+
+  setTargetValue(gender);
 
   for (let r of robots){
     console.log(r.login.uuid, id);
@@ -29,13 +33,14 @@ export default function RobotDetail(){
   
 
   console.log(robot);
+  console.log(gender);
 
   return (
-    <Link to='/'>
+    <Link to={`/robots`}>
       <section className={style.pictureFrame}>
         {
           robots.length === 0 
-            ? <Redirect to='/' /> 
+            ? history.push(`/robots`) 
             : <>
                 <div className={`${style.names} ${style.padding}`}>{robot.name.title}. {robot.name.first} {robot.name.last}</div>
                 <p className={`${style.padding} ${style.street}`}>Street: {robot.location.street.number} {robot.location.street.name}</p>
