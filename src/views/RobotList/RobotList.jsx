@@ -15,7 +15,6 @@ export default function RobotList(){
     loading, setLoading,
     robots, setRobots,
     gender, setGender,
-    targetValue
   } = useRUARobotContext();
 
   const handleGenderChange = (e) => {
@@ -41,7 +40,6 @@ export default function RobotList(){
 
       setLoading(false);
       setRobots(results);
-      console.log(targetValue);
     }
 
     getRobots();

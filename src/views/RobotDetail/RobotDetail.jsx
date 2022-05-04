@@ -8,13 +8,10 @@ export default function RobotDetail(){
   const {
     robots,
     gender,
-    setTargetValue
   } = useRUARobotContext();
   const history = useHistory();
   let robot = {};
   console.log(robots);
-
-  setTargetValue(gender);
 
   for (let r of robots){
     console.log(r.login.uuid, id);

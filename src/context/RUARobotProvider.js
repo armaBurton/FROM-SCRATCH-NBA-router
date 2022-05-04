@@ -10,13 +10,11 @@ export default function RUARobotProvider({ children }){
   const[loading, setLoading] = useState(true);
   const[robots, setRobots] = useState([]);
   const[gender, setGender] = useState('all');
-  const[targetValue, setTargetValue] = useState('all');
 
   const ruaRobotState = {
     loading, setLoading,
     robots, setRobots,
     gender, setGender,
-    targetValue, setTargetValue
   };
 
   return (
