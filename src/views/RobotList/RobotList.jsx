@@ -2,53 +2,53 @@ import { useRUARobotContext } from '../../context/RUARobotProvider';
 import style from './RobotList.css';
 import RobotCard from '../RobotCard/RobotCard';
 import { useHistory, useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import robotFetch from '../../services/robotFetch';
 
 
 export default function RobotList(){
   const location = useLocation();
-  const gender = new URLSearchParams(location.search).get('gender') ?? 'all';
+  const searchGender = new URLSearchParams(location.search).get('gender') ?? 'all';
+  console.log(searchGender);
   const history = useHistory();
   
   const {
     loading, setLoading,
-    robots, setRobots
+    robots, setRobots,
+    gender, setGender
   } = useRUARobotContext();
 
   const handleGenderChange = (e) => {
     e.preventDefault();
-    console.log(e.target.value);
+    setGender(e.target.value);
     history.push(`/robots/?gender=${e.target.value}`);
   };
 
-  console.log(history);
-  useEffect(() => { 
-    async function getRobots(){
+  useEffect(() => {
+    async function getRobots() {
       setLoading(true);
 
-      const genderParam = new URLSearchParams(location.search).get('gender');
-      // console.log(genderParam);
-      const url = genderParam === 'all' || !genderParam
+      const url = searchGender === 'all'
         ? 'https://randomuser.me/api/?results=10&noinfo'
-        : `https://randomuser.me/api/?results=10&noinfo&gender=${genderParam}`;
+        : `https://randomuser.me/api/?results=10&noinfo&gender=${searchGender}`;
 
-      const robots = await robotFetch(url);
+      const {results} = await robotFetch(url);
 
-      robots.results.length ? setRobots(robots.results) : history.push('/');
+
       setLoading(false);
+      setRobots(results);
     }
 
     getRobots();
-  }, [location.search])
+  }, [searchGender])
 
   return (
       <section className={style.meetMyRobots}>
           <div className={style.listHead}>
-            <label htmlFor='gender'>RoboDude or FemBots</label>
+            <label htmlFor='gender'>Mandroid or FemBots</label>
             <select id="gender" value={gender} onChange={handleGenderChange}>
               <option value="all">ALL</option>
-              <option value="male">Robodude</option>
+              <option value="male">Mandroid</option>
               <option value="female">Fembot</option>
             </select>
           </div>

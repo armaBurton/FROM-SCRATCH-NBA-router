@@ -4,11 +4,34 @@ import {
   Route,
   Redirect
 } from 'react-router-dom';
-
+import { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import RobotList from './views/RobotList/RobotList';
 import RobotDetail from './views/RobotDetail/RobotDetail';
+import { useRUARobotContext } from './context/RUARobotProvider';
 
 export default function App() {
+  const {
+    loading, setLoading,
+    robots, setRobots
+  } = useRUARobotContext();
+  const history = useHistory();
+
+  useEffect(() => { 
+    async function getRobots(){
+      setLoading(true);
+
+      const robots = await fetch('https://randomuser.me/api/?results=10&noinfo');
+      const { results } = await robots.json();
+
+      setRobots(results);
+      console.log(results);
+      setLoading(false);
+      history.push('/robots');
+    }
+
+    getRobots();
+  }, [])
 
   return (
     <>
