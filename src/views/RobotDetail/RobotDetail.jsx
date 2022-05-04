@@ -23,20 +23,12 @@ export default function RobotDetail(){
     r.login.uuid === id ? robot = r : () => {};
   }
 
-  useEffect(() => {
-    if(robot === {} ){
-      console.log('Redirecting');
-      history.push('/');
-    }
-
-  }, [robot])
-
   function handleClick(){
     history.push(`/robots/?gender=${gender}`)
   }
 
   return (
-    <Link onClick={handleClick}>
+    <Link to='#' onClick={handleClick}>
       <section className={style.pictureFrame}>
         {
           robots.length === 0 

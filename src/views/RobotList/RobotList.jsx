@@ -23,23 +23,28 @@ export default function RobotList(){
   const handleGenderChange = (e) => {
     e.preventDefault();
     setGender(e.target.value);
-
+    setRobots([]);
     history.push(`/robots/?gender=${e.target.value}`);
   };
 
   useEffect(() => {
     async function getRobots() {
       setLoading(true);
+      
 
       const url = searchGender === 'all'
         ? 'https://randomuser.me/api/?results=10&noinfo'
         : `https://randomuser.me/api/?results=10&noinfo&gender=${searchGender}`;
 
-      const {results} = await robotFetch(url);
+      let results = '';
 
+      !robots.length
+        ? {results} = await robotFetch(url)
+        : results = robots;
 
       setLoading(false);
       setRobots(results);
+      console.log(targetValue);
     }
 
     getRobots();
