@@ -1,14 +1,11 @@
 import { Link } from 'react-router-dom';
-import { useRUARobotContext } from '../../context/RUARobotProvider';
 import style from './RobotCard.css'
 
-export default function RobotCard({ robot }){
-  const {
-
-  } = useRUARobotContext();
+export default function RobotCard({ robot, i }){
+  console.log(i);
 
   return (
-    <Link to={`/robots/${robot.login.uuid}`}>
+    <Link to={`/robots/${robot.login.uuid}`} data-testid={i}>
       <section className={style.robotCard}>
         <div className={style.nameTag}>
           <img src={robot.picture.thumbnail} alt={`${robot.name.first}${robot.name.last}`} />

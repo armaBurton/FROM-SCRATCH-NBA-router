@@ -7,11 +7,11 @@ import './index.css';
 
 render(
   <React.StrictMode>
-    <RUARobotProvider>
-      <BrowserRouter>
+    <BrowserRouter>
+      <RUARobotProvider>
         <App />
-      </BrowserRouter>
-    </RUARobotProvider>
+      </RUARobotProvider>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );

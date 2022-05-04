@@ -59,7 +59,7 @@ export default function RobotList(){
           {
             loading 
               ? <h1>Beep Beep Boop...Computing</h1> 
-              : robots.map((robot, i) => <RobotCard key={`${robot}${i}`} robot={robot} />)
+            : robots.map((robot, i) => <RobotCard key={`${robot}${i}`} robot={robot} i={i}  />)
           }
         </div>
       </section>
