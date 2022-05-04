@@ -1,8 +1,6 @@
-import RobotList from '../RobotList/RobotList';
 import { Link } from 'react-router-dom';
 import { useRUARobotContext } from '../../context/RUARobotProvider';
 import style from './RobotCard.css'
-import RobotDetail from '../RobotDetail/RobotDetail';
 
 export default function RobotCard({ robot }){
   const {
@@ -21,7 +19,7 @@ export default function RobotCard({ robot }){
   );
 }
 
-
+// DATA MODEL
 // {
 //   "gender": "female",
 //   "name": {

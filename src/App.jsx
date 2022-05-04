@@ -1,4 +1,4 @@
-import style from './App.css';
+import './App.css';
 import {
   Switch, 
   Route,
@@ -12,8 +12,8 @@ import { useRUARobotContext } from './context/RUARobotProvider';
 
 export default function App() {
   const {
-    loading, setLoading,
-    robots, setRobots
+    setLoading,
+    setRobots
   } = useRUARobotContext();
   const history = useHistory();
 

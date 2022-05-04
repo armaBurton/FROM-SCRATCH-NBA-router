@@ -4,8 +4,6 @@ import RobotCard from '../RobotCard/RobotCard';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import robotFetch from '../../services/robotFetch';
-import RobotListUseEffect from './RobotListUseEffect';
-
 
 export default function RobotList(){
   const location = useLocation();
@@ -29,8 +27,7 @@ export default function RobotList(){
 
   useEffect(() => {
     async function getRobots() {
-      setLoading(true);
-      
+      setLoading(true);      
 
       const url = searchGender === 'all'
         ? 'https://randomuser.me/api/?results=10&noinfo'

@@ -1,8 +1,6 @@
-import { Redirect } from 'react-router-dom';
 import { Link, useParams } from 'react-router-dom';
 import { useRUARobotContext } from '../../context/RUARobotProvider';
 import style from './RobotDetail.css';
-import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 export default function RobotDetail(){
