@@ -9,9 +9,8 @@ export default function RobotCard({ robot }){
 
   } = useRUARobotContext();
 
-
   return (
-    <Link to={`/robots/${robot.id.value}`}>
+    <Link to={`/robots/${robot.login.uuid}`}>
       <section className={style.robotCard}>
         <div className={style.nameTag}>
           <img src={robot.picture.thumbnail} alt={`${robot.name.first}${robot.name.last}`} />

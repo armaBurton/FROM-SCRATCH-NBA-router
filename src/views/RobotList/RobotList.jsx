@@ -5,11 +5,11 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import robotFetch from '../../services/robotFetch';
 
-export const history = useHistory();
 
 export default function RobotList(){
   const location = useLocation();
   const gender = new URLSearchParams(location.search).get('gender') ?? 'all';
+  const history = useHistory();
   
   const {
     loading, setLoading,
@@ -35,7 +35,7 @@ export default function RobotList(){
 
       const robots = await robotFetch(url);
 
-      setRobots(robots.results);
+      robots.results.length ? setRobots(robots.results) : history.push('/');
       setLoading(false);
     }
 
@@ -56,7 +56,7 @@ export default function RobotList(){
           {
             loading 
               ? <h1>Beep Beep Boop...Computing</h1> 
-              : robots.map((robot, i) => <RobotCard key={`${robot}${i}`} robot={robot}/>)
+              : robots.map((robot, i) => <RobotCard key={`${robot}${i}`} robot={robot} />)
           }
         </div>
       </section>
