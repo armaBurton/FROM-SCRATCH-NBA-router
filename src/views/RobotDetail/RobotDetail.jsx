@@ -30,13 +30,13 @@ export default function RobotDetail(){
     }
 
   }, [robot])
-  
 
-  console.log(robot);
-  console.log(gender);
+  function handleClick(){
+    history.push(`/robots/?gender=${gender}`)
+  }
 
   return (
-    <Link to={`/robots`}>
+    <Link onClick={handleClick}>
       <section className={style.pictureFrame}>
         {
           robots.length === 0 
