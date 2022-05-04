@@ -1,0 +1,21 @@
+html{
+  display: flex;
+  justify-content: center;
+  background-color: lightblue;
+  width: 100%;
+}
+
+header{
+  width: 900px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+header img{
+  width: inherit;
+  position: fixed;
+  top: 0;
+  border-left: 5px solid steelblue;
+  border-right: 5px solid steelblue;
+}
