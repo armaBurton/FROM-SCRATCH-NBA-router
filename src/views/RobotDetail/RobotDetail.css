@@ -1,0 +1,25 @@
+.pictureFrame{
+  width: 100%;
+  height: 100vh;
+  margin-top: 220px;
+  border: 5px solid steelblue;
+  background-color: ghostwhite;
+}
+
+.padding{
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.names{
+  font-size: 2rem;
+  height: 50px;
+  background-color: darkblue;
+  color: yellow;
+  display:flex;
+  align-items: center;
+}
+
+.street{
+  margin-top: 20px;
+}

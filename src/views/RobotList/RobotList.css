@@ -1,0 +1,38 @@
+.meetMyRobots{
+  width: 900px;
+  height: 100vh;
+  background-color: steelblue;
+  margin-top: 220px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 50px;
+  /* padding-top: 30px; */
+}
+
+.listHead{
+  width: 100%;
+  height: 50px;
+  background-color: darkblue;
+  position: fixed;
+  width: inherit;
+  color: yellow;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 30px;
+}
+
+.listHead select{
+  height: 25px;
+}
+
+.cards{
+  padding-top: 80px;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
