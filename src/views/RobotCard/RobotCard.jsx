@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import style from './RobotCard.css'
 
 export default function RobotCard({ robot, i }){
-  console.log(i);
 
   return (
     <Link to={`/robots/${robot.login.uuid}`} data-testid={i}>

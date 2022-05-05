@@ -4,6 +4,7 @@ export default async function robotFetch(url){
 
     const robotsJson = await robots.json();
 
+
     return robotsJson;
   } catch (error) {
     console.error(error);

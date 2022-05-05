@@ -25,7 +25,7 @@ export default function App() {
       const { results } = await robots.json();
 
       setRobots(results);
-      console.log(results);
+      // console.log(results);
       setLoading(false);
       history.push('/robots');
     }
