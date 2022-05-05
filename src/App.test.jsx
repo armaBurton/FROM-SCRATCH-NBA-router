@@ -581,13 +581,14 @@ const server = setupServer(
   // rest.get(`https://randomuser.me/api/?results=10&noinfo&gender=female`, (req, res, ctx) => {
   //   console.log('req', req);
   //   return res(ctx.json(robots));
-  //   })
+  // })
  
 )
 
 global.fetch = fetch;
 
 beforeAll(() => server.listen());
+afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
 describe('App', () => {
@@ -616,10 +617,70 @@ describe('App', () => {
     await screen.findByText(/Hermitério/i);
   });
 
-  it('should toggle the dropdown menu, select FemBot, render a list of FemBots, then switch to ManDroids then rerender a list of all ManDroids, the back to all and render the whole list again', async () => {
+  const fembot = {
+    results: [
+      {
+    "gender": "female",
+    "name": {
+        "title": "Mrs",
+        "first": "Salete",
+        "last": "Martins"
+    },
+    "location": {
+        "street": {
+            "number": 7784,
+            "name": "Rua Quatro"
+        },
+        "city": "Volta Redonda",
+        "state": "Paraná",
+        "country": "Brazil",
+        "postcode": 42022,
+        "coordinates": {
+            "latitude": "72.5899",
+            "longitude": "81.4608"
+        },
+        "timezone": {
+            "offset": "+9:30",
+            "description": "Adelaide, Darwin"
+        }
+    },
+    "email": "salete.martins@example.com",
+    "login": {
+        "uuid": "699b0549-14a4-494a-acce-1d96ec8f75c2",
+        "username": "sadladybug764",
+        "password": "dalshe",
+        "salt": "XiP2v9Ql",
+        "md5": "fca1133b89400d1912e7ad8d5abd7cbf",
+        "sha1": "790428dc9a92f2ef22b8209cd2dbbb04683c85f8",
+        "sha256": "e40bb592a0c9a31a38ddbaf3a4b1a53e3888cc31861e73ab6a63faa513b81073"
+    },
+    "dob": {
+        "date": "1990-11-12T04:59:05.635Z",
+        "age": 32
+    },
+    "registered": {
+        "date": "2017-04-18T21:51:08.127Z",
+        "age": 5
+    },
+    "phone": "(45) 9350-7851",
+    "cell": "(27) 2272-8273",
+    "id": {
+        "name": "",
+        "value": null
+    },
+    "picture": {
+        "large": "https://randomuser.me/api/portraits/women/41.jpg",
+        "medium": "https://randomuser.me/api/portraits/med/women/41.jpg",
+        "thumbnail": "https://randomuser.me/api/portraits/thumb/women/41.jpg"
+    },
+    "nat": "BR"
+    }
+    ]
+  }
 
-  
-    
+
+  it('should toggle the dropdown menu, select FemBot, query with "female" search param and return a fembot', async () => {
+
     render(
       <MemoryRouter initialEntries={['/']}>
         <RUARobotProvider>
@@ -628,22 +689,27 @@ describe('App', () => {
       </MemoryRouter>
     );
 
-    const dropdown = screen.getByRole('combobox')
-    userEvent.selectOptions(dropdown, 'FemBot');
+    server.use(
+        rest.get(`https://randomuser.me/api/?results=10&noinfo&gender=female`, (req, res, ctx) => {
+          
+        return res(ctx.json(fembot));
+      })
+    )
+    let dropdown = screen.getByRole('combobox')
+    dropdown = userEvent.selectOptions(dropdown, screen.getByRole('option', {name: 'FemBot'}));
+    
     await screen.findByText(/Beep Beep Boop...Computing/i)
 
-    // userEvent.click(click);
-    // const femBots = await screen.findAllByAltText(/female/i);
-    // expect(femBots.length).toEqual(4);
-    // screen.getByText(/Umut/i);
-    // const manDroids = screen.getAllByAltText('male');
-    // console.log(manDroids.length);
-    // expect(manDroids.length).toEqual(6);
+      screen.debug();
 
+    const femBots = await screen.findByAltText(/female/i);
+    console.log(femBots);
 
+    
+    const manDroids = screen.queryAllByAltText('male');
+    console.log(manDroids.length);
+    expect(manDroids.length).toBe(0);
 
-    // expect(screen.getByText(/FemBot/i).selected).toBe(true);
-    // expect(screen.getByText(/ManDroid/i).selected).toBe(false);
-
+    
   });
 })
