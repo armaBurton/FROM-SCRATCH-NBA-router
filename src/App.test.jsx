@@ -577,7 +577,12 @@ const server = setupServer(
   rest.get('https://randomuser.me/api/?results=10&noinfo', (req, res, ctx) => {
 
     return res(ctx.json(robots));
-  })
+  }),
+  // rest.get(`https://randomuser.me/api/?results=10&noinfo&gender=female`, (req, res, ctx) => {
+  //   console.log('req', req);
+  //   return res(ctx.json(robots));
+  //   })
+ 
 )
 
 global.fetch = fetch;
@@ -588,7 +593,7 @@ afterAll(() => server.close());
 describe('App', () => {
   it.skip('should be a passing test', () => { });
 
-  it('should find "Mandroid or FemBots', async () => {
+  it.skip('should find "Mandroid or FemBots, find loading, select a card, click into that cards detail, and then click bake to the previous page.', async () => {
     render(
       <MemoryRouter initialEntries={['/']}>
         <RUARobotProvider>
@@ -609,5 +614,36 @@ describe('App', () => {
     userEvent.click(card);
 
     await screen.findByText(/Hermitério/i);
-  })
+  });
+
+  it('should toggle the dropdown menu, select FemBot, render a list of FemBots, then switch to ManDroids then rerender a list of all ManDroids, the back to all and render the whole list again', async () => {
+
+  
+    
+    render(
+      <MemoryRouter initialEntries={['/']}>
+        <RUARobotProvider>
+          <App />
+        </RUARobotProvider>
+      </MemoryRouter>
+    );
+
+    const dropdown = screen.getByRole('combobox')
+    userEvent.selectOptions(dropdown, 'FemBot');
+    await screen.findByText(/Beep Beep Boop...Computing/i)
+
+    // userEvent.click(click);
+    // const femBots = await screen.findAllByAltText(/female/i);
+    // expect(femBots.length).toEqual(4);
+    // screen.getByText(/Umut/i);
+    // const manDroids = screen.getAllByAltText('male');
+    // console.log(manDroids.length);
+    // expect(manDroids.length).toEqual(6);
+
+
+
+    // expect(screen.getByText(/FemBot/i).selected).toBe(true);
+    // expect(screen.getByText(/ManDroid/i).selected).toBe(false);
+
+  });
 })

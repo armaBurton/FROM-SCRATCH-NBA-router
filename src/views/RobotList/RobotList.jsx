@@ -48,11 +48,11 @@ export default function RobotList(){
   return (
       <section className={style.meetMyRobots}>
           <div className={style.listHead}>
-            <label htmlFor='gender'>Mandroid or FemBots</label>
+            <label htmlFor='gender'>ManDroid or FemBots</label>
             <select id="gender" value={gender} onChange={handleGenderChange}>
               <option value="all">ALL</option>
-              <option value="male">Mandroid</option>
-              <option value="female">Fembot</option>
+              <option value="male">ManDroid</option>
+              <option value="female">FemBot</option>
             </select>
           </div>
         <div className={style.cards}>

@@ -7,7 +7,7 @@ export default function RobotCard({ robot, i }){
     <Link to={`/robots/${robot.login.uuid}`} data-testid={i}>
       <section className={style.robotCard}>
         <div className={style.nameTag}>
-          <img src={robot.picture.thumbnail} alt={`${robot.name.first}${robot.name.last}`} />
+          <img src={robot.picture.thumbnail} alt={`${robot.gender}`} />
           <div className={style.names}>{robot.name.first} {robot.name.last}</div>
         </div>
       </section>
