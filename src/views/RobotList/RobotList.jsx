@@ -26,14 +26,14 @@ export default function RobotList() {
     const getRobots = await robotFetch(
       `https://randomuser.me/api/?results=10&noinfo&gender=${e.target.value}`
     );
-    console.log(`|| e.target.value >`, e.target.value);
+
     localStorage.setItem('robots', JSON.stringify(getRobots.results));
     history.push(`/robots/?gender=${gender}`);
   };
 
   useEffect(() => {
     const bit = JSON.parse(localStorage.getItem('gender'));
-    setSearchGender(bit.gender);
+    setSearchGender(bit?.gender);
   }, [gender]);
 
   async function resetRobots() {
@@ -51,10 +51,21 @@ export default function RobotList() {
       <div className={style.listHead}>
         <button onClick={resetRobots}>Reset</button>
         <label htmlFor="gender">ManDroid or FemBots</label>
-        <select id="gender" value={searchGender} onChange={handleGenderChange}>
-          <option value="all">ALL</option>
-          <option value="male">ManDroid</option>
-          <option value="female">FemBot</option>
+        <select
+          name="bots"
+          id="gender"
+          value={searchGender}
+          onChange={handleGenderChange}
+        >
+          <option name="all" value="all">
+            ALL
+          </option>
+          <option name="male" value="male">
+            ManDroid
+          </option>
+          <option name="fembot" value="female">
+            FemBot
+          </option>
         </select>
       </div>
       <div className={style.cards}>

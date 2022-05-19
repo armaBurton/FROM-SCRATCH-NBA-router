@@ -5,7 +5,7 @@ const RUARobotContext = createContext();
 export default function RUARobotProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const [robots, setRobots] = useState([]);
-  const [gender, setGender] = useState('');
+  const [gender, setGender] = useState('all');
 
   const ruaRobotState = {
     loading,
