@@ -123,14 +123,6 @@ describe('App', () => {
       </MemoryRouter>
     );
 
-    server.use(
-      rest.get(
-        `https://randomuser.me/api/?results=10&noinfo&gender=female`,
-        (req, res, ctx) => {
-          return res(ctx.json(fembot));
-        }
-      )
-    );
     screen.findByText(/mandroid or fembots/i);
     const dropbox = screen.getByRole('combobox');
     userEvent.click(dropbox);
