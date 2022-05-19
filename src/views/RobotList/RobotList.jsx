@@ -43,7 +43,8 @@ export default function RobotList() {
     const getRobots = await robotFetch(
       `https://randomuser.me/api/?results=10&noinfo&gender=all`
     );
-    localStorage.setItem('gender', JSON.stringify({ gender: 'all' }));
+    const genderObj = { gender: 'all' };
+    localStorage.setItem('gender', JSON.stringify(genderObj));
     localStorage.setItem('robots', JSON.stringify(getRobots.results));
     history.push('/');
   }
