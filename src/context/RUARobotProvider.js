@@ -1,20 +1,19 @@
-import {
-  createContext,
-  useContext,
-  useState
-} from 'react';
+import { createContext, useContext, useState } from 'react';
 
 const RUARobotContext = createContext();
 
-export default function RUARobotProvider({ children }){
-  const[loading, setLoading] = useState(true);
-  const[robots, setRobots] = useState([]);
-  const[gender, setGender] = useState('all');
+export default function RUARobotProvider({ children }) {
+  const [loading, setLoading] = useState(true);
+  const [robots, setRobots] = useState([]);
+  const [gender, setGender] = useState('all');
 
   const ruaRobotState = {
-    loading, setLoading,
-    robots, setRobots,
-    gender, setGender,
+    loading,
+    setLoading,
+    robots,
+    setRobots,
+    gender,
+    setGender,
   };
 
   return (
@@ -24,6 +23,6 @@ export default function RUARobotProvider({ children }){
   );
 }
 
-export function useRUARobotContext(){
+export function useRUARobotContext() {
   return useContext(RUARobotContext);
 }
