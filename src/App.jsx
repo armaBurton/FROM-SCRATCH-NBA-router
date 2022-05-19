@@ -32,11 +32,11 @@ export default function App() {
 
           setRobots(results);
           setLoading(false);
-          history.push(`/robots?gender=${gender.gender}`);
+          history.push(`/robots?gender=${gender}`);
         } else {
           setRobots(storage);
           setLoading(false);
-          history.push(`/robots?gender=${gender.gender}`);
+          history.push(`/robots?gender=${gender}`);
         }
       } else {
         history.replace(`./robots/${detail.login.uuid}`);

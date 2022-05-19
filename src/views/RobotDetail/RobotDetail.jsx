@@ -20,7 +20,11 @@ export default function RobotDetail() {
   function handleClick() {
     sessionStorage.clear();
     console.log(`|| session >`, session);
-    history.push(`/robots/?gender=${session.gender}`);
+    for (let r of robots) {
+      r.login.uuid === id ? (robot = r) : () => {};
+    }
+    history.goBack();
+    // history.push(`/robots/?gender=${session.gender}`);
   }
 
   return (
@@ -39,13 +43,13 @@ export default function RobotDetail() {
         ) : (
           // history.push(`/robots`)
           <>
-            <div className={`${style.names} ${style.padding}`}>
+            {/* <div className={`${style.names} ${style.padding}`}>
               {robot.name.title}. {robot.name.first} {robot.name.last}
             </div>
             <p className={`${style.padding} ${style.street}`}>
               Street: {robot.location.street.number}{' '}
               {robot.location.street.name}
-            </p>
+            </p> */}
           </>
         )}
       </section>
