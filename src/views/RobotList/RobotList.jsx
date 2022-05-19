@@ -2,41 +2,47 @@ import { useRUARobotContext } from '../../context/RUARobotProvider';
 import style from './RobotList.css';
 import RobotCard from '../RobotCard/RobotCard';
 import { useHistory, useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import robotFetch from '../../services/robotFetch';
 import { func } from 'prop-types';
 
 export default function RobotList() {
   const location = useLocation();
-  const searchGender = new URLSearchParams(location.search).get('gender');
-  console.log(searchGender);
+
+  // let searchGender = new URLSearchParams(location.search).get('gender');
   const history = useHistory();
   const storage = JSON.parse(localStorage.getItem('robots'));
   console.log(`|| storage >`, storage);
+  const [searchGender, setSearchGender] = useState({});
 
   const { loading, setLoading, robots, setRobots, gender, setGender } =
     useRUARobotContext();
 
-  // async function getNewRobots(e) {
-  //   return await robotFetch(
-  //     `https://randomuser.me/api/?results=10&noinfo&gender=${e.target.value}`
-  //   );
-  // }
-
   const handleGenderChange = async (e) => {
     e.preventDefault();
     setGender(e.target.value);
+    localStorage.setItem('gender', JSON.stringify({ gender: e.target.value }));
 
     const getRobots = await robotFetch(
       `https://randomuser.me/api/?results=10&noinfo&gender=${e.target.value}`
     );
-
+    console.log(`|| e.target.value >`, e.target.value);
     localStorage.setItem('robots', JSON.stringify(getRobots.results));
-    history.push(`/robots/?gender=${e.target.value}`);
+    history.push(`/robots/?gender=${gender}`);
   };
 
-  function resetRobots() {
+  useEffect(() => {
+    const bit = JSON.parse(localStorage.getItem('gender'));
+    setSearchGender(bit.gender);
+  }, [gender]);
+
+  async function resetRobots() {
     localStorage.clear();
+    const getRobots = await robotFetch(
+      `https://randomuser.me/api/?results=10&noinfo&gender=all`
+    );
+    localStorage.setItem('gender', JSON.stringify({ gender: 'all' }));
+    localStorage.setItem('robots', JSON.stringify(getRobots.results));
     history.push('/');
   }
 

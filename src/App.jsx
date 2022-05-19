@@ -10,7 +10,9 @@ export default function App() {
   const { setLoading, setRobots } = useRUARobotContext();
   const history = useHistory();
   const storage = JSON.parse(localStorage.getItem('robots'));
-  const gender = JSON.parse(localStorage.getItem('gender')) || 'all';
+  const gender = JSON.parse(localStorage.getItem('gender'));
+
+  console.log(`|| gender >`, gender);
 
   useEffect(() => {
     async function getRobots() {
