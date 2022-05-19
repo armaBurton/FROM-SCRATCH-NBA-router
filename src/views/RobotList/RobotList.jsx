@@ -33,6 +33,8 @@ export default function RobotList() {
 
   useEffect(() => {
     const bit = JSON.parse(localStorage.getItem('gender'));
+    console.log(`|| bit >`, bit);
+
     setSearchGender(bit?.gender);
   }, [gender]);
 

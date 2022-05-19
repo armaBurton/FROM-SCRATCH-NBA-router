@@ -24,6 +24,7 @@ export default function App() {
         );
         const { results } = await robots.json();
         localStorage.setItem('robots', JSON.stringify(results));
+        localStorage.setItem('gender', JSON.stringify({ gender: 'all' }));
 
         setRobots(results);
         setLoading(false);
