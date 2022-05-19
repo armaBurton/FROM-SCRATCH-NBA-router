@@ -1,14 +1,24 @@
 import { Link } from 'react-router-dom';
-import style from './RobotCard.css'
+import style from './RobotCard.css';
 
-export default function RobotCard({ robot, i }){
+export default function RobotCard({ robot, i }) {
+  function sessionCookie() {
+    console.log(`|| robot >`, robot);
+    sessionStorage.setItem('detail', JSON.stringify(robot));
+  }
 
   return (
-    <Link to={`/robots/${robot.login.uuid}`} data-testid={i}>
+    <Link
+      to={`/robots/${robot.login.uuid}`}
+      data-testid={i}
+      onClick={sessionCookie}
+    >
       <section className={style.robotCard}>
         <div className={style.nameTag}>
           <img src={robot.picture.thumbnail} alt={`${robot.gender}`} />
-          <div className={style.names}>{robot.name.first} {robot.name.last}</div>
+          <div className={style.names}>
+            {robot.name.first} {robot.name.last}
+          </div>
         </div>
       </section>
     </Link>

@@ -8,11 +8,13 @@ import { func } from 'prop-types';
 
 export default function RobotList() {
   const location = useLocation();
+  const storage = JSON.parse(localStorage.getItem('robots'));
 
   // let searchGender = new URLSearchParams(location.search).get('gender');
   const history = useHistory();
-  const storage = JSON.parse(localStorage.getItem('robots'));
-  console.log(`|| storage >`, storage);
+
+  useEffect(() => {}, []);
+
   const [searchGender, setSearchGender] = useState({});
 
   const { loading, setLoading, robots, setRobots, gender, setGender } =
@@ -33,7 +35,6 @@ export default function RobotList() {
 
   useEffect(() => {
     const bit = JSON.parse(localStorage.getItem('gender'));
-    console.log(`|| bit >`, bit);
 
     setSearchGender(bit?.gender);
   }, [gender]);

@@ -9,31 +9,37 @@ import { useRUARobotContext } from './context/RUARobotProvider';
 export default function App() {
   const { setLoading, setRobots } = useRUARobotContext();
   const history = useHistory();
-  const storage = JSON.parse(localStorage.getItem('robots'));
-  const gender = JSON.parse(localStorage.getItem('gender'));
-
+  let storage = JSON.parse(localStorage.getItem('robots'));
+  let gender = JSON.parse(localStorage.getItem('gender'));
   console.log(`|| gender >`, gender);
-
+  let detail = JSON.parse(sessionStorage.getItem('detail'));
+  console.log(`|| detail >`, detail);
   useEffect(() => {
+    storage = JSON.parse(localStorage.getItem('robots'));
+    gender = JSON.parse(localStorage.getItem('gender'));
+    detail = JSON.parse(sessionStorage.getItem('detail'));
     async function getRobots() {
       setLoading(true);
+      if (!detail) {
+        if (!storage) {
+          const robots = await fetch(
+            'https://randomuser.me/api/?results=10&noinfo'
+          );
+          const { results } = await robots.json();
+          localStorage.setItem('robots', JSON.stringify(results));
+          const genderObj = { gender: 'all' };
+          localStorage.setItem('gender', JSON.stringify(genderObj));
 
-      if (!storage) {
-        const robots = await fetch(
-          'https://randomuser.me/api/?results=10&noinfo'
-        );
-        const { results } = await robots.json();
-        localStorage.setItem('robots', JSON.stringify(results));
-        const genderObj = { gender: 'all' };
-        localStorage.setItem('gender', JSON.stringify(genderObj));
-
-        setRobots(results);
-        setLoading(false);
-        history.push(`/robots?gender=${gender}`);
+          setRobots(results);
+          setLoading(false);
+          history.push(`/robots?gender=${gender.gender}`);
+        } else {
+          setRobots(storage);
+          setLoading(false);
+          history.push(`/robots?gender=${gender.gender}`);
+        }
       } else {
-        setRobots(storage);
-        setLoading(false);
-        history.push(`/robots?gender=${gender}`);
+        history.replace(`./robots/${detail.login.uuid}`);
       }
     }
 
